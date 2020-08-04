@@ -11,23 +11,23 @@ describe('KMeansEngine', () => {
     it('should only accept array of objects', () => {
       (() => {
         kmeans.clusterize([[1, 2, 3], [4, 5, 6]], { k: 3 }, () => {});
-      }).should.to.throw('Vectors should be array of objects');
+      }).should.to.throw('Data should be array of objects');
 
       (() => {
         kmeans.clusterize([() => {}, () => {}], { k: 3 }, () => {});
-      }).should.to.throw('Vectors should be array of objects');
+      }).should.to.throw('Data should be array of objects');
 
       (() => {
         kmeans.clusterize(['abc', 'def'], { k: 3 }, () => {});
-      }).should.to.throw('Vectors should be array of objects');
+      }).should.to.throw('Data should be array of objects');
 
       (() => {
         kmeans.clusterize([123, 456.7], { k: 3 }, () => {});
-      }).should.to.throw('Vectors should be array of objects');
+      }).should.to.throw('Data should be array of objects');
 
       (() => {
         kmeans.clusterize([true, true], { k: 3 }, () => {});
-      }).should.to.throw('Vectors should be array of objects');
+      }).should.to.throw('Data should be array of objects');
     });
 
     it('should only accept cluster size be positive integer', () => {
@@ -81,7 +81,7 @@ describe('KMeansEngine', () => {
         res.clusters.should.to.have.lengthOf(4);
         res.clusters.forEach((cluster) => {
           cluster.should.to.have.property('centroid');
-          cluster.should.to.have.property('vectorIds');
+          cluster.should.to.have.property('dataIds');
         });
 
         done();
@@ -97,7 +97,7 @@ describe('KMeansEngine', () => {
         res.clusters.should.to.have.lengthOf(3);
         res.clusters.forEach((cluster) => {
           cluster.should.to.have.property('centroid');
-          cluster.should.to.have.property('vectorIds');
+          cluster.should.to.have.property('dataIds');
         });
 
         done();
@@ -113,7 +113,7 @@ describe('KMeansEngine', () => {
         res.clusters.should.to.have.lengthOf(3);
         res.clusters.forEach((cluster) => {
           cluster.should.to.have.property('centroid');
-          cluster.should.to.have.property('vectorIds');
+          cluster.should.to.have.property('dataIds');
         });
 
         res.iterations.should.to.be.equal(1);
@@ -137,7 +137,7 @@ describe('KMeansEngine', () => {
         res1.clusters.should.to.have.lengthOf(3);
         res1.clusters.forEach((cluster1) => {
           cluster1.should.to.have.property('centroid');
-          cluster1.should.to.have.property('vectorIds');
+          cluster1.should.to.have.property('dataIds');
         });
 
         kmeans.clusterize(set2, {
@@ -152,7 +152,7 @@ describe('KMeansEngine', () => {
           res2.clusters.should.to.have.lengthOf(3);
           res2.clusters.forEach((cluster2) => {
             cluster2.should.to.have.property('centroid');
-            cluster2.should.to.have.property('vectorIds');
+            cluster2.should.to.have.property('dataIds');
           });
 
           res1.should.deep.equal(res2);

@@ -8,14 +8,16 @@ const data = require('../fixtures/2d-numbers');
 
 describe('Cluster', () => {
   describe('calculateCentroids', () => {
-    const vectors = data.map(obj => new Vector(obj));
+    const vectors = data.map(obj => {
+      return {datum: obj, vector: new Vector(obj)}
+    });
 
     const cluster = new Cluster(new Vector());
 
-    cluster.addVector(0, vectors[0]);
-    cluster.addVector(1, vectors[1]);
-    cluster.addVector(2, vectors[2]);
-    cluster.addVector(3, vectors[3]);
+    cluster.addDatum(0, vectors[0]);
+    cluster.addDatum(1, vectors[1]);
+    cluster.addDatum(2, vectors[2]);
+    cluster.addDatum(3, vectors[3]);
 
     cluster.calculateCentroids(vectors);
 
